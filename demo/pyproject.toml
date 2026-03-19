@@ -1,0 +1,13 @@
+[project]
+name = "recognition-ner"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "cupy-cuda13x>=13.0.0",
+    "spacy-transformers>=1.4.0",
+    "zh-core-web-lg",
+]
+
+[tool.uv.sources]
+zh-core-web-lg = { url = "https://github.com/explosion/spacy-models/releases/download/zh_core_web_lg-3.8.0/zh_core_web_lg-3.8.0-py3-none-any.whl" }
