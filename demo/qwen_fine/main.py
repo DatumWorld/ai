@@ -65,8 +65,15 @@ dataset = dataset.map(formatting_prompts_func, batched = True)
 
 
 
-from trl import SFTTrainer
+from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
 from transformers import TrainingArguments
+
+# 1. 定义Response 起始符（必须与数据集中出现的文字完全一致），确保 Collator 能精准定位，否则可能失效
+response_template = "\n### Response:\n"
+collator = DataCollatorForCompletionOnlyLM(
+    response_template=response_template,
+    tokenizer=tokenizer
+)
 
 # 为2080ti 22GB 优化
 trainer = SFTTrainer(
@@ -74,6 +81,7 @@ trainer = SFTTrainer(
     tokenizer = tokenizer,
     train_dataset = dataset,
     dataset_text_field = "text",
+    data_collator = collator,  # <-- 核心改动：使用专门的 collator
     max_seq_length = 1024,
     args = TrainingArguments(
         per_device_train_batch_size = 1,
