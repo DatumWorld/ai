@@ -1,0 +1,9 @@
+git clone https://github.com/ggml-org/llama.cpp.git
+cd llama.cpp
+mkdir build
+cd build
+# 启用 CUDA 编译
+cmake .. -DGGML_CUDA=ON
+# 开始编译（-j 指定核心数以加快速度）
+cmake --build . --config Release -j 8
+
