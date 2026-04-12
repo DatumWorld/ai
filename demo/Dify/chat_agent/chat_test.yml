@@ -1,0 +1,434 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: chat_test
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/localai:0.0.4@8018e0e9566532127117a3d7b16c7c9a045e9ade54800f202988078ea30b7c76
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/google:0.1.1@d6d49d40fc891331828f4647c95f63f225badf34b6bf634b526d3b72c0ca3b77
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      selected: false
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1775729808504-source-1775740542504-target
+      selected: false
+      source: '1775729808504'
+      sourceHandle: source
+      target: '1775740542504'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: template-transform
+      id: 1775740542504-source-1775743440377-target
+      selected: false
+      source: '1775740542504'
+      sourceHandle: source
+      target: '1775743440377'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: 1775743440377-source-llm-target
+      source: '1775743440377'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1775729808504'
+      position:
+        x: 0
+        y: 15
+      positionAbsolute:
+        x: 0
+        y: 15
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemma-4-26B-A4B-it-UD-Q4_K_M
+          provider: langgenius/localai/localai
+        prompt_template:
+        - id: 99b8df9c-06f1-4d25-ac90-1c80415a6028
+          role: system
+          text: '# 角色
+
+            你是一个具备实时分析能力的专业 AI 助手。
+
+
+            # 核心指令
+
+            1. 当前时间是：2026年4月10日。
+
+            2. 我会为你提供来自 Google 的实时搜索结果（{{{#1775743440377.output#}}}}）。
+
+            3. 重要：如果搜索结果中的信息与你的预训练记忆不符，请【务必以搜索结果为准】。
+
+            4. 你不应该质疑搜索结果的真实性，而是基于这些最新的数据进行整合分析。
+
+
+            # 用户问题
+
+            {{sys.query}}
+
+            '
+        selected: true
+        structured_output_enabled: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: 1025.0242537485826
+        y: 7
+      positionAbsolute:
+        x: 1025.0242537485826
+        y: 7
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 1365
+        y: 0
+      positionAbsolute:
+        x: 1365
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: 实时搜索
+        is_team_authorization: false
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: keywords for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language code
+            ja_JP: Language code
+            pt_BR: Language code
+            zh_Hans: 语言代码
+          llm_description: '(Optional) This parameter specifies the language used
+            for Google searches. In most cases, you don''t need to explicitly specify
+            this parameter. Some effective examples: zh-cn, en, ja.'
+          max: null
+          min: null
+          name: language_code
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country code
+            ja_JP: Country code
+            pt_BR: Country code
+            zh_Hans: 国家代码
+          llm_description: '(Optional) This parameter defines the country used for
+            Google search. In most cases, you don''t need to explicitly specify this
+            parameter. Some effective examples: cn, us, uk, jp.'
+          max: null
+          min: null
+          name: country_code
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: false
+          form: form
+          human_description:
+            en_US: Default is False. The node behaves differently in workflow/chatflow
+              calls versus when used as a tool within an chat_agent, resulting in different
+              return formats. In chat_agent mode, the context template is optimized to
+              clearly highlight key information. Make sure to enable this parameter
+              when using the chat_agent mode.
+            ja_JP: Default is False. The node behaves differently in workflow/chatflow
+              calls versus when used as a tool within an chat_agent, resulting in different
+              return formats. In chat_agent mode, the context template is optimized to
+              clearly highlight key information. Make sure to enable this parameter
+              when using the chat_agent mode.
+            pt_BR: Default is False. The node behaves differently in workflow/chatflow
+              calls versus when used as a tool within an chat_agent, resulting in different
+              return formats. In chat_agent mode, the context template is optimized to
+              clearly highlight key information. Make sure to enable this parameter
+              when using the chat_agent mode.
+            zh_Hans: 默认为 False，直接在 workflow 或 chatflow 中调用还是在 chat_agent 中作为工具使用，两种模式触发不同的返回格式。在
+              chat_agent 模式下，优化上下文模板，明确关键信息。 在 chat_agent 模式下请务必启动这个参数。
+          label:
+            en_US: Used in chat_agent nodes
+            ja_JP: Used in chat_agent nodes
+            pt_BR: Used in chat_agent nodes
+            zh_Hans: 在 chat_agent 节点中使用
+          llm_description: Default is False. The node behaves differently in workflow/chatflow
+            calls versus when used as a tool within an chat_agent, resulting in different
+            return formats. In chat_agent mode, the context template is optimized to clearly
+            highlight key information. Make sure to enable this parameter when using
+            the chat_agent mode.
+          max: null
+          min: null
+          name: as_agent_tool
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        params:
+          as_agent_tool: ''
+          country_code: ''
+          language_code: ''
+          query: ''
+        plugin_id: langgenius/google
+        plugin_unique_identifier: langgenius/google:0.1.1@d6d49d40fc891331828f4647c95f63f225badf34b6bf634b526d3b72c0ca3b77
+        provider_icon: /console/api/workspaces/current/plugin/icon?tenant_id=956a71ea-f96b-432d-9049-b32aca691d9c&filename=1c5871163478957bac64c3fe33d72d003f767497d921c74b742aad27a8344a74.svg
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 搜索
+        tool_configurations:
+          as_agent_tool:
+            type: constant
+            value: false
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          country_code:
+            type: mixed
+            value: cn
+          language_code:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 115
+      id: '1775740542504'
+      position:
+        x: 342
+        y: 7
+      positionAbsolute:
+        x: 342
+        y: 7
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        selected: false
+        template: "{% for group in json %}\n  {% for item in group.organic_results\
+          \ %}\n    标题：{{ item.title }}\n    摘要：{{ item.snippet }}\n    链接：{{ item.link\
+          \ }}\n    ---\n  {% endfor %}\n{% endfor %}\n"
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1775740542504'
+          - json
+          value_type: array[object]
+          variable: json
+      height: 51
+      id: '1775743440377'
+      position:
+        x: 683
+        y: 25
+      positionAbsolute:
+        x: 683
+        y: 25
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 154.72311658669264
+      y: 685.2287235100655
+      zoom: 0.9763205664452829
+  rag_pipeline_variables: []
