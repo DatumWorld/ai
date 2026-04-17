@@ -1,0 +1,28 @@
+vllm 安装
+Ubuntu 20.04 环境
+如果没有安装uv，先安装
+curl -LsSf https://astral.sh/uv/install.sh | sh
+然后 执行
+    source $HOME/.local/bin/env             # Ubuntu一般选这个 ，对于 (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish        #  (fish)选这个
+ 添加 $HOME/.local/bin 到 PATH, 或者重启你的shell（就是关掉黑窗口重连）
+
+
+然后安装vllm
+
+mkdir vllm
+cd vllm
+
+方式1：
+uv venv --python 3.12 --seed
+source .venv/bin/activate
+uv pip install vllm --torch-backend=auto
+
+方式2，使用conda：
+conda create -n myenv python=3.12 -y
+conda activate myenv
+pip install --upgrade uv
+uv pip install vllm --torch-backend=auto
+
+
+参考官网 https://docs.vllm.ai/en/stable/getting_started/quickstart/#installation
