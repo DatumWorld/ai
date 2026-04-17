@@ -7,3 +7,6 @@ cmake .. -DGGML_CUDA=ON
 # 开始编译（-j 指定核心数以加快速度）
 cmake --build . --config Release -j 8
 
+# 拉起模型的命令实例。通过浏览器8888端口访问使用或者调用。供参考
+cd build/bin      # 在bin目录下执行下面命令
+./llama-server -m /path/to/xx.gguf      --host 0.0.0.0     --port 8888     -ngl 99     -c 163840     --api-key sk-123456     --flash-attn auto
