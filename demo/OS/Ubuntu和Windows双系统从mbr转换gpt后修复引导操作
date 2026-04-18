@@ -1,0 +1,8 @@
+Ubuntu和Windows双系统从mbr转换gpt后修复引导操作
+
+1 windows下 diskgenius 将磁盘分区表从mbr转换 gpt
+2 修复引导。使用boot-repair-disk-64bit.iso 制作启动盘修复Ubuntu引导
+3 使用windows安装U盘命令行修复windows引导
+4 Windows更新可能删除ubuntu引导，
+bcdedit /set {bootmgr} path \EFI\ubuntu\grubx64.efi
+将windows引导挂在ubuntu下面，别让它抢跑
