@@ -13,3 +13,26 @@ cd build/bin      # 在bin目录下执行下面命令
 
 # 拉起模型的命令实例。kv量化压缩存储方法。供参考
 ./llama-server -m Carnice-Qwen3.6-MoE-35B-A3B-APEX-I-Quality.gguf      --host 0.0.0.0     --port 8888     -ngl 40     -c 4096     --flash-attn on --cache-type-k q4_0 --cache-type-v q4_0
+
+examples:
+# 2080ti 22GB run Qwen3.6-27B-UD-Q4_K_XL.gguf
+./llama-server -m Qwen3.6-27B-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 999     -c 16384     --flash-attn on # 约22tps
+
+# 2080ti 22GB run gemma-4-31B-it-UD-Q4_K_XL.gguf
+
+# run model
+./llama-server -m gemma-4-31B-it-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 59     -c 8192     --flash-attn on # 10-14tps
+./llama-server -m gemma-4-31B-it-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 58     -c 10000     --flash-attn on  # 约10tps
+./llama-server -m gemma-4-31B-it-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 999     -c 16384     --flash-attn on --cache-type-k q8_0 --cache-type-v q8_0 # kv量化。约20tps
+
+# 关闭swap
+sudo swapoff -a
+
+# 关闭图形用户省显存
+sudo systemctl isolate multi-user.target
+
+# 监控 nvidia
+nvidia-smi -l 1
+
+# 监控CPU 占用
+top
