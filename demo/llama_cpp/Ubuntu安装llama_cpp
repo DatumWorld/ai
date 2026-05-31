@@ -24,7 +24,9 @@ examples:
 ./llama-server -m gemma-4-31B-it-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 59     -c 8192     --flash-attn on # 10-14tps
 ./llama-server -m gemma-4-31B-it-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 58     -c 10000     --flash-attn on  # 约10tps
 ./llama-server -m gemma-4-31B-it-UD-Q4_K_XL.gguf      --host 0.0.0.0     --port 11436     -ngl 999     -c 16384     --flash-attn on --cache-type-k q8_0 --cache-type-v q8_0 # kv量化。约20tps
-
+./llama-server -m Qwen3.6-35B-A3B-UD-Q4_K_M.gguf    --host 0.0.0.0     --port 11436     -ngl 999     -c 16384     --flash-attn on --no-mmap
+./llama-server -m Qwen3.6-35B-A3B-APEX-I-Balanced.gguf --host 0.0.0.0     --port 11436     -ngl 35     -c 16384     --flash-attn on --no-mmap # 25-32tps
+./llama-server -m Qwen3.6-35B-A3B-APEX-I-Balanced.gguf --host 0.0.0.0     --port 11436     -ngl 36     -c 8192     --flash-attn on --no-mmap # 30-33tps
 # 关闭swap
 sudo swapoff -a
 
