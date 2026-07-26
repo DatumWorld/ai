@@ -18,7 +18,9 @@ llama.cpp本地编译安装问题合集：
    原因：可能原因。翻了下GitHub，认为这可能是个版本或者网络问题，大概如下：官方并不要求强制本地安装nodejs；当检测到本地有nodejs，程序会本地编译生成webui，否则会从指定的HF Bucket （存储桶，即网络地址）下载预编译的webui，但是很可能会下载失败（因为在这个地方https://huggingface.co/buckets），所以如果网络不稳定或者需要自己修改前端网页的，需要本地安装nodejs。
 参考：https://github.com/ggml-org/llama.cpp/issues/23055，https://github.com/ggml-org/llama.cpp/pull/23051 。
 
-
+2 问题：cmake 安装
+  答案：Ubuntu/Debian操作系统：
+     sudo apt install cmake
 
 # 拉起模型的命令实例。通过浏览器8888端口访问使用或者调用。供参考
 cd build/bin      # 在bin目录下执行下面命令
