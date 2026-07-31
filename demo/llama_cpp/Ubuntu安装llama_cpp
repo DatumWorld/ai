@@ -22,6 +22,9 @@ llama.cpp本地编译安装问题合集：
   答案：Ubuntu/Debian操作系统：
      sudo apt install cmake
 
+3 问题：CUDA Toolkit的安装
+  答案：参考https://developer.nvidia.com/cuda-downloads ，在网页上选择自己的环境后会出现安装命令。如果要安装指定的历史版本，访问https://developer.nvidia.com/cuda-toolkit-archive 选择需要的历史版本点击链接进入安装指导页面。
+
 # 拉起模型的命令实例。通过浏览器8888端口访问使用或者调用。供参考
 cd build/bin      # 在bin目录下执行下面命令
 ./llama-server -m /path/to/xx.gguf      --host 0.0.0.0     --port 8888     -ngl 99     -c 163840     --api-key sk-123456     --flash-attn auto
