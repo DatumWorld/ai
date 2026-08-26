@@ -14,7 +14,7 @@ cmake --build . --config Release -j 8
 
 llama.cpp本地编译安装问题合集：
 1  问题：启动了sever服务，但没有出现webui
-   答案：解决方法两种。（1）本地安装nodejs（推荐），官网安装方法参考https://nodejs.org/zh-cn/download；（2）或者能够合规科学上网（需要能够访问huggingface）。
+   答案：解决方法两种。（1）本地安装nodejs（推荐），并尽量配置nodejs源为内地，避免从外网源下载依赖组件失败，官网安装方法参考https://nodejs.org/zh-cn/download；（2）或者能够合规科学上网（需要能够访问huggingface）。
    原因：可能原因。翻了下GitHub，认为这可能是个版本或者网络问题，大概如下：官方并不要求强制本地安装nodejs；当检测到本地有nodejs，程序会本地编译生成webui，否则会从指定的HF Bucket （存储桶，即网络地址）下载预编译的webui，但是很可能会下载失败（因为在这个地方https://huggingface.co/buckets），所以如果网络不稳定或者需要自己修改前端网页的，需要本地安装nodejs。
 参考：https://github.com/ggml-org/llama.cpp/issues/23055，https://github.com/ggml-org/llama.cpp/pull/23051 。
 
